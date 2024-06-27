@@ -23,6 +23,7 @@ namespace Common.View
         private float _driftPower;
         private bool _isFirst, _isSecond, _isThird;
         private int _driftMode = 0;
+        private bool _isBoosting;
 
         private void Start()
         {
@@ -72,7 +73,7 @@ namespace Common.View
         {
             _isAboveGround = collision.gameObject.tag.StartsWith("Ground");
 
-            if (collision.gameObject.tag == "GroundRoad")
+            if (collision.gameObject.tag == "GroundRoad" && !_isBoosting)
             {
                 if (_rb.velocity.sqrMagnitude < Math.Pow(_abradeAcceleration / 50, 2))
                 {
@@ -131,7 +132,9 @@ namespace Common.View
 
             if (_driftMode > 0)
             {
-                DOVirtual.Float(_maxVelocity * 2, _maxVelocity, .3f * _driftMode, value => _rb.velocity = _kartModel.transform.forward * _maxVelocity);
+                _isBoosting = true;
+                DOVirtual.Float(_maxVelocity * 3, _maxVelocity, 1.5f * _driftMode, value => _rb.velocity = _kartModel.transform.forward * value)
+                    .OnComplete(() => _isBoosting = false);
             }
 
             _driftPower = 0;
