@@ -21,7 +21,6 @@ namespace Common.View
         private bool _isDrifting;
         private int _driftDirection;
         private float _driftPower;
-        private bool _isFirst, _isSecond, _isThird;
         private int _driftMode = 0;
         private bool _isBoosting;
 
@@ -107,21 +106,18 @@ namespace Common.View
 
         private void ColorDrift()
         {
-            if (_driftPower > 50 && _driftPower < 99 && !_isFirst)
+            if (_driftPower > 50 && _driftPower < 99 && _driftMode < 1)
             {
-                _isFirst = true;
                 _driftMode = 1;
             }
 
-            if (_driftPower > 100 && _driftPower < 149 && !_isSecond)
+            if (_driftPower > 100 && _driftPower < 149 && _driftMode < 2)
             {
-                _isSecond = true;
                 _driftMode = 2;
             }
 
-            if (_driftPower > 150 && !_isThird)
+            if (_driftPower > 150 && _driftMode < 3)
             {
-                _isThird = true;
                 _driftMode = 3;
             }
         }
@@ -139,7 +135,6 @@ namespace Common.View
 
             _driftPower = 0;
             _driftMode = 0;
-            _isFirst = false; _isSecond = false; _isThird = false;
         }
 
         private async UniTaskVoid MoveForward(CancellationToken ct)
