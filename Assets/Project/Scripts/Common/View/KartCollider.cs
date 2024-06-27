@@ -23,6 +23,7 @@ namespace Common.View
         private float _driftPower;
         private int _driftMode = 0;
         private bool _isBoosting;
+        private RaycastHit _hit;
 
         private void Start()
         {
@@ -57,6 +58,14 @@ namespace Common.View
             _kartModel.transform.position = transform.position;
             //Debug.Log(_isAboveGround);
 
+            // ’n–Ê”»’è
+            Ray ray = new Ray(transform.position, -Vector3.up);
+            Physics.Raycast(ray, out _hit, 0.6f);
+
+            _isAboveGround = _hit.collider?.gameObject.tag.StartsWith("Ground") ?? false;
+
+            Abrade();
+
             if (_isDrifting)
             {
                 float control = _driftDirection == 1 ? UtilMethods.Remap(Input.GetAxis("Horizontal"), -1, 1, 0, 2) : UtilMethods.Remap(Input.GetAxis("Horizontal"), -1, 1, 2, 0);
@@ -68,11 +77,15 @@ namespace Common.View
             }
         }
 
-        private void OnCollisionStay(Collision collision)
+        private void Abrade()
         {
-            _isAboveGround = collision.gameObject.tag.StartsWith("Ground");
+            if (!_hit.collider)
+            {
+                return;
+            }
+            string tag = _hit.collider.gameObject.tag;
 
-            if (collision.gameObject.tag == "GroundRoad" && !_isBoosting)
+            if (tag == "GroundRoad" && !_isBoosting)
             {
                 if (_rb.velocity.sqrMagnitude < Math.Pow(_abradeAcceleration / 50, 2))
                 {
@@ -84,7 +97,7 @@ namespace Common.View
                 }
                 //Debug.Log("road");
             }
-            if (collision.gameObject.tag == "GroundOffroad")
+            if (tag == "GroundOffroad")
             {
                 if (_rb.velocity.sqrMagnitude < Math.Pow(_abradeAcceleration / 13, 2))
                 {
@@ -97,11 +110,6 @@ namespace Common.View
                 //Debug.Log("offroad");
             }
             //Debug.Log(_rb.velocity);
-        }
-
-        private void OnCollisionExit(Collision collision)
-        {
-            _isAboveGround = false;
         }
 
         private void ColorDrift()
