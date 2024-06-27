@@ -68,8 +68,8 @@ namespace Common.View
 
             if (_isDrifting)
             {
-                float control = _driftDirection == 1 ? UtilMethods.Remap(Input.GetAxis("Horizontal"), -1, 1, 0, 2) : UtilMethods.Remap(Input.GetAxis("Horizontal"), -1, 1, 2, 0);
-                float powerControl = _driftDirection == 1 ? UtilMethods.Remap(Input.GetAxis("Horizontal"), -1, 1, .2f, 1) : UtilMethods.Remap(Input.GetAxis("Horizontal"), -1, 1, 1, .2f);
+                float control = _driftDirection == 1 ? Utils.Remap(Input.GetAxis("Horizontal"), -1, 1, 0, 2) : Utils.Remap(Input.GetAxis("Horizontal"), -1, 1, 2, 0);
+                float powerControl = _driftDirection == 1 ? Utils.Remap(Input.GetAxis("Horizontal"), -1, 1, .2f, 1) : Utils.Remap(Input.GetAxis("Horizontal"), -1, 1, 1, .2f);
                 _kartModel.transform.eulerAngles = new Vector3(0, _kartModel.transform.eulerAngles.y + _maxRotateVelocity / 50 * _driftDirection * control, 0);
                 _driftPower += powerControl;
 

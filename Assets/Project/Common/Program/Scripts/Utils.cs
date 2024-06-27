@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Common
 {
-    public static class UtilMethods
+    public static class Utils
     {
         // value‚ğ”ÍˆÍ[from1, to1]‚©‚ç”ÍˆÍ[from2, to2]‚É•ÏŠ·‚·‚éŠÖ”
         public static float Remap(this float value, float from1, float to1, float from2, float to2)
