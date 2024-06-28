@@ -26,8 +26,7 @@ namespace InGame.Kart
             while (true)
             {
                 //await UniTask.WaitUntil(() => Input.GetKey(KeyCode.W) && _isAboveGround && _rb.velocity.sqrMagnitude < maxSqrVelocity, cancellationToken: ct);
-                await UniTask.WaitUntil(() => Input.GetKey(KeyCode.W) && _colliderView.Velocity.sqrMagnitude < maxSqrVelocity, cancellationToken: ct);
-                await UniTask.Yield(PlayerLoopTiming.FixedUpdate, ct);
+                await UniTask.WaitUntil(() => Input.GetKey(KeyCode.W) && _colliderView.Velocity.sqrMagnitude < maxSqrVelocity, PlayerLoopTiming.FixedUpdate, ct);
                 _colliderView.SetVelocity(_colliderView.Velocity + _appearanceView.transform.forward * _model.MoveAcceleration / 50);
             }
         }
@@ -38,8 +37,7 @@ namespace InGame.Kart
             while (true)
             {
                 //await UniTask.WaitUntil(() => Input.GetKey(KeyCode.S) && _isAboveGround && _rb.velocity.sqrMagnitude < maxSqrVelocity, cancellationToken: ct);
-                await UniTask.WaitUntil(() => Input.GetKey(KeyCode.S) && _colliderView.Velocity.sqrMagnitude < maxSqrVelocity, cancellationToken: ct);
-                await UniTask.Yield(PlayerLoopTiming.FixedUpdate, ct);
+                await UniTask.WaitUntil(() => Input.GetKey(KeyCode.S) && _colliderView.Velocity.sqrMagnitude < maxSqrVelocity, PlayerLoopTiming.FixedUpdate, ct);
                 _colliderView.SetVelocity(_colliderView.Velocity - _appearanceView.transform.forward * _model.MoveAcceleration / 50);
             }
         }

@@ -27,8 +27,7 @@ namespace InGame.Kart
             while (true)
             {
                 //await UniTask.WaitUntil(() => Input.GetAxis("Horizontal") != 0 && !_isDrifting, cancellationToken: ct);
-                await UniTask.WaitUntil(() => Input.GetAxis("Horizontal") != 0, cancellationToken: ct);
-                await UniTask.Yield(PlayerLoopTiming.FixedUpdate, ct);
+                await UniTask.WaitUntil(() => Input.GetAxis("Horizontal") != 0, PlayerLoopTiming.FixedUpdate, ct);
                 transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + _appearanceModel.MaxRotateVelocity / 50 * Input.GetAxis("Horizontal"), 0);
             }
         }

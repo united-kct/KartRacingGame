@@ -650,9 +650,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kart
       objectReference: {fileID: 0}
-    - target: {fileID: 8364344617206897128, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
+    - target: {fileID: 6812686307172959178, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364344617206897128, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8879106902575530775, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
       propertyPath: m_Name
