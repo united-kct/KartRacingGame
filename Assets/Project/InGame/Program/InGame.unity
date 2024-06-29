@@ -485,6 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _appearanceModel: {fileID: 2032642099}
+  _appearanceView: {fileID: 2032642101}
   _colliderView: {fileID: 8200862461233949224}
 --- !u!114 &2032642101
 MonoBehaviour:
@@ -645,6 +646,10 @@ PrefabInstance:
     - target: {fileID: 4043358163024762796, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399538613884095839, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
+      propertyPath: m_Mass
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5160354782926451552, guid: 0f425c83cc228274d8281309894a3dc0, type: 3}
       propertyPath: _rb
