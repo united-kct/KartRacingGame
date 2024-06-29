@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
+using R3.Triggers;
 
 namespace InGame.Kart
 {
     public class KartAppearancePresenter : MonoBehaviour
     {
         [SerializeField] private KartAppearanceModel _appearanceModel;
+        [SerializeField] private KartAppearanceView _appearanceView;
         [SerializeField] private KartColliderView _colliderView;
 
         private void Start()
         {
             CancellationToken ct = this.GetCancellationTokenOnDestroy();
             Rotate(ct).Forget();
-        }
 
-        private void FixedUpdate()
-        {
-            transform.position = _colliderView.transform.position;
+            this.FixedUpdateAsObservable().Subscribe(_ => _appearanceView.transform.position = _colliderView.transform.position).AddTo(this);
         }
 
         private async UniTaskVoid Rotate(CancellationToken ct)
@@ -28,7 +28,7 @@ namespace InGame.Kart
             {
                 //await UniTask.WaitUntil(() => Input.GetAxis("Horizontal") != 0 && !_isDrifting, cancellationToken: ct);
                 await UniTask.WaitUntil(() => Input.GetAxis("Horizontal") != 0, PlayerLoopTiming.FixedUpdate, ct);
-                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + _appearanceModel.MaxRotateVelocity / 50 * Input.GetAxis("Horizontal"), 0);
+                _appearanceView.transform.eulerAngles = new Vector3(0, _appearanceView.transform.eulerAngles.y + _appearanceModel.MaxRotateVelocity / 50 * Input.GetAxis("Horizontal"), 0);
             }
         }
     }
