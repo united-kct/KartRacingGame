@@ -8,10 +8,7 @@ namespace InGame.Kart
     {
         [SerializeField] private Rigidbody _rb;
 
-        public Vector3 Velocity => _rb.velocity;
-        public Vector3 Position => transform.position;
-
-        public void SetVelocity(Vector3 velocity)
+        public void OnVelocityChanged(Vector3 velocity)
         {
             _rb.velocity = velocity;
         }
