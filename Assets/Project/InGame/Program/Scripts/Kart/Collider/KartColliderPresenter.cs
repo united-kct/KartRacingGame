@@ -73,8 +73,8 @@ namespace InGame.Kart
             {
                 _colliderModel.IsAboveGround = false;
             }
-            Debug.Log(_colliderModel.Velocity.CurrentValue);
-            Debug.Log(_colliderModel.IsAboveGround);
+            //Debug.Log(_colliderModel.Velocity.CurrentValue);
+            //Debug.Log(_colliderModel.IsAboveGround);
         }
     }
 }
