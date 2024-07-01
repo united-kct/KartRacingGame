@@ -58,7 +58,7 @@ namespace InGame.Kart
             {
                 _colliderModel.IsAboveGround = true;
 
-                float abradeAcceleration = Frictions.FrictionalAccelerationList[_appearanceView.GroundObject!.tag];
+                float abradeAcceleration = Frictions.FrictionalAccelerationList[_appearanceView.GroundObject.tag];
                 Vector3 velocity = _colliderModel.Velocity.CurrentValue;
                 if (velocity.sqrMagnitude < Math.Pow(abradeAcceleration / 50, 2))
                 {
