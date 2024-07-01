@@ -17,8 +17,9 @@ namespace InGame.Kart
 
         private void Start()
         {
-            _appearanceModel = new();
+            _appearanceModel = new(_appearanceView.transform.eulerAngles);
 
+            _appearanceModel.Direction.Subscribe(_appearanceView.OnDirectionChanged).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => _appearanceView.transform.position = _colliderView.transform.position).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Rotate()).AddTo(this);
         }
@@ -28,7 +29,7 @@ namespace InGame.Kart
             //if(Input.GetAxis("Horizontal") != 0 && !_isDrifting)
             if (Input.GetAxis("Horizontal") != 0)
             {
-                _appearanceView.transform.eulerAngles = new Vector3(0, _appearanceView.transform.eulerAngles.y + _appearanceModel.MaxRotateVelocity / 50 * Input.GetAxis("Horizontal"), 0);
+                _appearanceModel.SetDirection(new Vector3(0, _appearanceView.transform.eulerAngles.y + _appearanceModel.MaxRotateVelocity / 50 * Input.GetAxis("Horizontal"), 0));
             }
         }
     }

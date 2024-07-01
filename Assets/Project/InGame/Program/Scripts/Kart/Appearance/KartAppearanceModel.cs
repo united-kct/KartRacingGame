@@ -3,16 +3,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using R3;
 
 namespace InGame.Kart
 {
     public class KartAppearanceModel
     {
-        public float MaxRotateVelocity { get; private set; }
+        private readonly ReactiveProperty<Vector3> _direction;
 
-        public KartAppearanceModel()
+        public float MaxRotateVelocity { get; private set; }
+        public ReadOnlyReactiveProperty<Vector3> Direction => _direction;
+
+        public KartAppearanceModel(Vector3 direction)
         {
+            _direction = new(direction);
+
             MaxRotateVelocity = 60;
+        }
+
+        public void SetDirection(Vector3 direction)
+        {
+            _direction.Value = direction;
         }
     }
 }
