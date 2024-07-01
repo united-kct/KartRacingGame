@@ -6,10 +6,13 @@ using UnityEngine;
 
 namespace InGame.Kart
 {
-    public class KartAppearanceModel : MonoBehaviour
+    public class KartAppearanceModel
     {
-        [SerializeField] private float _maxRotateVelocity = 60;
+        public float MaxRotateVelocity { get; private set; }
 
-        public float MaxRotateVelocity => _maxRotateVelocity;
+        public KartAppearanceModel()
+        {
+            MaxRotateVelocity = 60;
+        }
     }
 }

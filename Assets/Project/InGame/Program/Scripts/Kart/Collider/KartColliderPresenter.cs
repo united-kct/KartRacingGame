@@ -12,7 +12,7 @@ namespace InGame.Kart
 {
     public class KartColliderPresenter : MonoBehaviour
     {
-        [SerializeField] private KartColliderModel _colliderModel = null!;
+        private KartColliderModel _colliderModel = null!;
         [SerializeField] private KartColliderView _colliderView = null!;
         [SerializeField] private KartAppearanceView _appearanceView = null!;
 
@@ -20,6 +20,8 @@ namespace InGame.Kart
 
         private void Start()
         {
+            _colliderModel = new();
+
             _maxSqrVelocity = Math.Pow(_colliderModel.MaxVelocity, 2);
 
             _colliderModel.Velocity.Subscribe(_colliderView.OnVelocityChanged).AddTo(this);

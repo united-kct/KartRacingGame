@@ -11,12 +11,14 @@ namespace InGame.Kart
 {
     public class KartAppearancePresenter : MonoBehaviour
     {
-        [SerializeField] private KartAppearanceModel _appearanceModel = null!;
+        private KartAppearanceModel _appearanceModel = null!;
         [SerializeField] private KartAppearanceView _appearanceView = null!;
         [SerializeField] private KartColliderView _colliderView = null!;
 
         private void Start()
         {
+            _appearanceModel = new();
+
             this.FixedUpdateAsObservable().Subscribe(_ => _appearanceView.transform.position = _colliderView.transform.position).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Rotate()).AddTo(this);
         }
