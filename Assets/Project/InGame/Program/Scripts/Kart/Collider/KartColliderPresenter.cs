@@ -53,12 +53,12 @@ namespace InGame.Kart
 
         private void Abrade()
         {
-            _appearanceView.UpdateGroundRay(_colliderModel.GroundDistance);
-            if (_appearanceView.GroundObject && Frictions.FrictionalAccelerationList.ContainsKey(_appearanceView.GroundObject!.tag))
+            _colliderView.UpdateGroundRay(_colliderModel.GroundDistance);
+            if (_colliderView.GroundObject && Frictions.FrictionalAccelerationList.ContainsKey(_colliderView.GroundObject!.tag))
             {
                 _colliderModel.IsAboveGround = true;
 
-                float abradeAcceleration = Frictions.FrictionalAccelerationList[_appearanceView.GroundObject.tag];
+                float abradeAcceleration = Frictions.FrictionalAccelerationList[_colliderView.GroundObject.tag];
                 Vector3 velocity = _colliderModel.Velocity.CurrentValue;
                 if (velocity.sqrMagnitude < Math.Pow(abradeAcceleration / 50, 2))
                 {
