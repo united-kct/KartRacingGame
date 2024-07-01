@@ -1,48 +1,80 @@
+#nullable enable
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using System;
 using R3;
+using R3.Triggers;
 
 namespace InGame.Kart
 {
     public class KartColliderPresenter : MonoBehaviour
     {
-        [SerializeField] private KartColliderModel _colliderModel;
-        [SerializeField] private KartColliderView _colliderView;
-        [SerializeField] private KartAppearanceView _appearanceView;
+        [SerializeField] private KartColliderModel _colliderModel = null!;
+        [SerializeField] private KartColliderView _colliderView = null!;
+        [SerializeField] private KartAppearanceView _appearanceView = null!;
+
+        private double _maxSqrVelocity;
 
         private void Start()
         {
+            _maxSqrVelocity = Math.Pow(_colliderModel.MaxVelocity, 2);
+
             _colliderModel.Velocity.Subscribe(_colliderView.OnVelocityChanged).AddTo(this);
-
-            CancellationToken ct = this.GetCancellationTokenOnDestroy();
-            MoveForward(ct).Forget();
-            MoveBackward(ct).Forget();
+            this.FixedUpdateAsObservable().Subscribe(_ => Move()).AddTo(this);
         }
 
-        private async UniTaskVoid MoveForward(CancellationToken ct)
+        private void Move()
         {
-            double maxSqrVelocity = Math.Pow(_colliderModel.MaxVelocity, 2);
-            while (true)
+            MoveForward();
+            MoveBackward();
+            Abrade();
+        }
+
+        private void MoveForward()
+        {
+            Vector3 velocity = _colliderModel.Velocity.CurrentValue;
+            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && velocity.sqrMagnitude < _maxSqrVelocity)
             {
-                //await UniTask.WaitUntil(() => Input.GetKey(KeyCode.W) && _isAboveGround && _rb.velocity.sqrMagnitude < maxSqrVelocity, cancellationToken: ct);
-                await UniTask.WaitUntil(() => Input.GetKey(KeyCode.W) && _colliderModel.Velocity.CurrentValue.sqrMagnitude < maxSqrVelocity, PlayerLoopTiming.FixedUpdate, ct);
-                _colliderModel.SetVelocity(_colliderModel.Velocity.CurrentValue + _appearanceView.transform.forward * _colliderModel.MoveAcceleration / 50);
+                _colliderModel.SetVelocity(velocity + _appearanceView.transform.forward * _colliderModel.MoveAcceleration / 50);
             }
         }
 
-        private async UniTaskVoid MoveBackward(CancellationToken ct)
+        private void MoveBackward()
         {
-            double maxSqrVelocity = Math.Pow(_colliderModel.MaxVelocity / 5, 2);
-            while (true)
+            Vector3 velocity = _colliderModel.Velocity.CurrentValue;
+            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && velocity.sqrMagnitude < _maxSqrVelocity)
             {
-                //await UniTask.WaitUntil(() => Input.GetKey(KeyCode.S) && _isAboveGround && _rb.velocity.sqrMagnitude < maxSqrVelocity, cancellationToken: ct);
-                await UniTask.WaitUntil(() => Input.GetKey(KeyCode.S) && _colliderModel.Velocity.CurrentValue.sqrMagnitude < maxSqrVelocity, PlayerLoopTiming.FixedUpdate, ct);
-                _colliderModel.SetVelocity(_colliderModel.Velocity.CurrentValue - _appearanceView.transform.forward * _colliderModel.MoveAcceleration / 50);
+                _colliderModel.SetVelocity(velocity - _appearanceView.transform.forward * _colliderModel.MoveAcceleration / 50);
             }
+        }
+
+        private void Abrade()
+        {
+            _appearanceView.UpdateGroundRay(_colliderModel.GroundDistance);
+            if (_appearanceView.GroundObject && Frictions.FrictionalAccelerationList.ContainsKey(_appearanceView.GroundObject!.tag))
+            {
+                _colliderModel.IsAboveGround = true;
+
+                float abradeAcceleration = Frictions.FrictionalAccelerationList[_appearanceView.GroundObject!.tag];
+                Vector3 velocity = _colliderModel.Velocity.CurrentValue;
+                if (velocity.sqrMagnitude < Math.Pow(abradeAcceleration / 50, 2))
+                {
+                    _colliderModel.SetVelocity(new Vector3(0, 0, 0));
+                }
+                else
+                {
+                    _colliderModel.SetVelocity(velocity - velocity.normalized * abradeAcceleration / 50);
+                }
+            }
+            else
+            {
+                _colliderModel.IsAboveGround = false;
+            }
+            Debug.Log(_colliderModel.Velocity.CurrentValue);
+            Debug.Log(_colliderModel.IsAboveGround);
         }
     }
 }

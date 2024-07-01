@@ -8,8 +8,8 @@ namespace InGame.Kart
     {
         public static readonly Dictionary<string, float> FrictionalAccelerationList = new()
         {
-            { "GroundRoad", .556f },
-            { "GroundOffroad", .139f }
+            { "GroundRoad", 2.78f },
+            { "GroundOffroad", .556f }
         };
     }
 }
