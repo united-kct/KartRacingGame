@@ -3,10 +3,10 @@ using MessagePack;
 
 namespace Common.Schema
 {
-    [MemoryTable("frictions"), MessagePackObject(true)]
-    public sealed class Frictions
+    [MemoryTable("friction"), MessagePackObject(true)]
+    public sealed class Friction
     {
-        public Frictions(string id, string tagName, float frictionalAcceleration)
+        public Friction(string id, string tagName, float frictionalAcceleration)
         {
             Id = id;
             TagName = tagName;
