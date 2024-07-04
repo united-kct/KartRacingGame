@@ -6,9 +6,9 @@ using MasterMemory;
 using MessagePack;
 using System.Collections.Generic;
 using System;
-using MasterData.Tables;
+using Generated.MasterData.Tables;
 
-namespace MasterData
+namespace Generated.MasterData
 {
    public sealed class MemoryDatabase : MemoryDatabaseBase
    {
@@ -114,7 +114,7 @@ namespace MasterData
             if (metaTable != null) return metaTable;
 
             var dict = new Dictionary<string, MasterMemory.Meta.MetaTable>();
-            dict.Add("friction", MasterData.Tables.FrictionTable.CreateMetaTable());
+            dict.Add("friction", Generated.MasterData.Tables.FrictionTable.CreateMetaTable());
 
             metaTable = new MasterMemory.Meta.MetaDatabase(dict);
             return metaTable;

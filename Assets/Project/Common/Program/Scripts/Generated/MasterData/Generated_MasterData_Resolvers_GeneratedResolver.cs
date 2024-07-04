@@ -11,7 +11,7 @@
 #pragma warning disable SA1312 // Variable names should begin with lower-case letter
 #pragma warning disable SA1649 // File name should match first type name
 
-namespace MasterData.Resolvers
+namespace Generated.MasterData.Resolvers
 {
     public class GeneratedResolver : global::MessagePack.IFormatterResolver
     {
@@ -63,7 +63,7 @@ namespace MasterData.Resolvers
 
             switch (key)
             {
-                case 0: return new MasterData.Formatters.Common.Schema.FrictionFormatter();
+                case 0: return new Generated.MasterData.Formatters.Common.Schema.FrictionFormatter();
                 default: return null;
             }
         }

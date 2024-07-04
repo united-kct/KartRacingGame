@@ -14,7 +14,7 @@
 #pragma warning disable SA1403 // File may only contain a single namespace
 #pragma warning disable SA1649 // File name should match first type name
 
-namespace MasterData.Formatters.Common.Schema
+namespace Generated.MasterData.Formatters.Common.Schema
 {
     public sealed class FrictionFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::Common.Schema.Friction>
     {

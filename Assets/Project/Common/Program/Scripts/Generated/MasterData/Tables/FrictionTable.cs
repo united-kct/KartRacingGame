@@ -7,7 +7,7 @@ using MessagePack;
 using System.Collections.Generic;
 using System;
 
-namespace MasterData.Tables
+namespace Generated.MasterData.Tables
 {
    public sealed partial class FrictionTable : TableBase<Friction>, ITableUniqueValidate
    {

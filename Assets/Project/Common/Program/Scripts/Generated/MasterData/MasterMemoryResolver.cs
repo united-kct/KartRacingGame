@@ -6,9 +6,9 @@ using MasterMemory;
 using MessagePack;
 using System.Collections.Generic;
 using System;
-using MasterData.Tables;
+using Generated.MasterData.Tables;
 
-namespace MasterData
+namespace Generated.MasterData
 {
     public class MasterMemoryResolver : global::MessagePack.IFormatterResolver
     {
