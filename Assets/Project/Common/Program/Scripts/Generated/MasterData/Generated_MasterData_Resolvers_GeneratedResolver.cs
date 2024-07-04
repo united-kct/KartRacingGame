@@ -49,7 +49,7 @@ namespace Generated.MasterData.Resolvers
         {
             lookup = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(1)
             {
-                { typeof(global::Common.Schema.Friction), 0 },
+                { typeof(global::Common.MasterData.Friction), 0 },
             };
         }
 
@@ -63,7 +63,7 @@ namespace Generated.MasterData.Resolvers
 
             switch (key)
             {
-                case 0: return new Generated.MasterData.Formatters.Common.Schema.FrictionFormatter();
+                case 0: return new Generated.MasterData.Formatters.Common.MasterData.FrictionFormatter();
                 default: return null;
             }
         }

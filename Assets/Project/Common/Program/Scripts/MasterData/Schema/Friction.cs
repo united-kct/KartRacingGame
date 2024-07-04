@@ -1,7 +1,7 @@
 using MasterMemory;
 using MessagePack;
 
-namespace Common.Schema
+namespace Common.MasterData
 {
     [MemoryTable("friction"), MessagePackObject(true)]
     public sealed class Friction

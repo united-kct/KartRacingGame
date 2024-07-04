@@ -14,9 +14,9 @@
 #pragma warning disable SA1403 // File may only contain a single namespace
 #pragma warning disable SA1649 // File name should match first type name
 
-namespace Generated.MasterData.Formatters.Common.Schema
+namespace Generated.MasterData.Formatters.Common.MasterData
 {
-    public sealed class FrictionFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::Common.Schema.Friction>
+    public sealed class FrictionFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::Common.MasterData.Friction>
     {
         // Id
         private static global::System.ReadOnlySpan<byte> GetSpan_Id() => new byte[1 + 2] { 162, 73, 100 };
@@ -25,7 +25,7 @@ namespace Generated.MasterData.Formatters.Common.Schema
         // FrictionalAcceleration
         private static global::System.ReadOnlySpan<byte> GetSpan_FrictionalAcceleration() => new byte[1 + 22] { 182, 70, 114, 105, 99, 116, 105, 111, 110, 97, 108, 65, 99, 99, 101, 108, 101, 114, 97, 116, 105, 111, 110 };
 
-        public void Serialize(ref global::MessagePack.MessagePackWriter writer, global::Common.Schema.Friction value, global::MessagePack.MessagePackSerializerOptions options)
+        public void Serialize(ref global::MessagePack.MessagePackWriter writer, global::Common.MasterData.Friction value, global::MessagePack.MessagePackSerializerOptions options)
         {
             if (value is null)
             {
@@ -43,7 +43,7 @@ namespace Generated.MasterData.Formatters.Common.Schema
             writer.Write(value.FrictionalAcceleration);
         }
 
-        public global::Common.Schema.Friction Deserialize(ref global::MessagePack.MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
+        public global::Common.MasterData.Friction Deserialize(ref global::MessagePack.MessagePackReader reader, global::MessagePack.MessagePackSerializerOptions options)
         {
             if (reader.TryReadNil())
             {
@@ -85,7 +85,7 @@ namespace Generated.MasterData.Formatters.Common.Schema
                 }
             }
 
-            var ____result = new global::Common.Schema.Friction(__Id__, __TagName__, __FrictionalAcceleration__);
+            var ____result = new global::Common.MasterData.Friction(__Id__, __TagName__, __FrictionalAcceleration__);
             reader.Depth--;
             return ____result;
         }
