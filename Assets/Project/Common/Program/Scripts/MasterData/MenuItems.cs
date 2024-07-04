@@ -15,5 +15,11 @@ namespace Common.MasterData
             CodeGenerator.ExecuteMasterMemoryCodeGenerator();
             CodeGenerator.ExecuteMessagePackCodeGenerator();
         }
+
+        [MenuItem("Tools/MasterData/BuildMasterData")]
+        private static void BuildMasterData()
+        {
+            MasterDataBuilder.Build();
+        }
     }
 }
