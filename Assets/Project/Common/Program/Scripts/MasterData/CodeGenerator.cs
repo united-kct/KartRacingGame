@@ -34,7 +34,7 @@ namespace Common.MasterData
             // true で p.Exitedを使う
             p.EnableRaisingEvents = true;
             // プロセスが終了したとき
-            p.Exited += (object sender, System.EventArgs e) =>
+            p.Exited += (object _, System.EventArgs _) =>
             {
                 UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
                 UnityEngine.Debug.Log($"{nameof(ExecuteMasterMemoryCodeGenerator)} : end");
@@ -66,7 +66,7 @@ namespace Common.MasterData
             // true で p.Exitedを使う
             p.EnableRaisingEvents = true;
             // プロセスが終了したとき
-            p.Exited += (object sender, System.EventArgs e) =>
+            p.Exited += (object _, System.EventArgs _) =>
             {
                 UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
                 UnityEngine.Debug.Log($"{nameof(ExecuteMessagePackCodeGenerator)} : end");
