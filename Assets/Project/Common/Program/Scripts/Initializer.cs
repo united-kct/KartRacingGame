@@ -1,6 +1,4 @@
 using Common.MasterData;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common

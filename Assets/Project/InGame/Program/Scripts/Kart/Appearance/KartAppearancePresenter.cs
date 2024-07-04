@@ -1,11 +1,9 @@
 #nullable enable
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
+using UnityEngine;
 
 namespace InGame.Kart
 {
