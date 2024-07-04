@@ -1,6 +1,8 @@
 #nullable enable
 
+using Common.MasterData;
 using Cysharp.Threading.Tasks;
+using Generated.MasterData;
 using R3;
 using R3.Triggers;
 using System;
@@ -24,6 +26,11 @@ namespace InGame.Kart
 
             _colliderModel.Velocity.Subscribe(_colliderView.OnVelocityChanged).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Move()).AddTo(this);
+
+            // TODO: å„Ç≈çÌèú
+            MemoryDatabase db = MasterDataDB.DB;
+            Friction friction = db.FrictionTable.FindById("1");
+            Debug.Log(friction.TagName);
         }
 
         private void Move()
