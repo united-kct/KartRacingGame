@@ -1,4 +1,4 @@
-#nullable enable
+﻿#nullable enable
 
 using Common.MasterData;
 using Cysharp.Threading.Tasks;
@@ -27,7 +27,7 @@ namespace InGame.Kart
             _colliderModel.Velocity.Subscribe(_colliderView.OnVelocityChanged).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Move()).AddTo(this);
 
-            // TODO: ��ō폜
+            // TODO: 後で削除
             MemoryDatabase db = MasterDataDB.DB;
             Friction friction = db.FrictionTable.FindById("1");
             Debug.Log(friction.TagName);

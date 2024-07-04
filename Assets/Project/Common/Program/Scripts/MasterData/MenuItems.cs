@@ -1,4 +1,4 @@
-#nullable enable
+ï»¿#nullable enable
 
 using UnityEditor;
 
@@ -6,9 +6,9 @@ namespace Common.MasterData
 {
     public static class MenuItems
     {
-        // dotnet‚ÉMasterMemory.Generator‚ÆMessagePack.Generator‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚ÄA
-        // input ‚Æ output‚ÌƒpƒX‚ª³‚µ‚¢‚©Šm”F‚·‚é•K—v‚ª‚ ‚é
-        // ÀsŒãA‰æ–Ê‘JˆÚ‚ğ‹²‚Ü‚È‚¢‚Æ”½‰f‚³‚ê‚È‚¢‚Ì‚Å’ˆÓ
+        // dotnetã«MasterMemory.Generatorã¨MessagePack.Generatorã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ã€
+        // input ã¨ outputã®ãƒ‘ã‚¹ãŒæ­£ã—ã„ã‹ç¢ºèªã™ã‚‹å¿…è¦ãŒã‚ã‚‹
+        // å®Ÿè¡Œå¾Œã€ç”»é¢é·ç§»ã‚’æŒŸã¾ãªã„ã¨åæ˜ ã•ã‚Œãªã„ã®ã§æ³¨æ„
         [MenuItem("Tools/MasterData/GenerateCode")]
         private static void GenerateCode()
         {

@@ -1,4 +1,4 @@
-using Generated.MasterData;
+﻿using Generated.MasterData;
 using Generated.MasterData.Resolvers;
 using MessagePack;
 using MessagePack.Resolvers;

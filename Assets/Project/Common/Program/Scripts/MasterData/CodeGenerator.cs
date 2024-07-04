@@ -1,4 +1,4 @@
-#nullable enable
+ï»¿#nullable enable
 
 using System.Diagnostics;
 using UnityEngine;
@@ -31,14 +31,14 @@ namespace Common.MasterData
 
             Process? p = Process.Start(psi);
 
-            // true ‚Å p.Exited‚ğg‚¤
+            // true ã§ p.Exitedã‚’ä½¿ã†
             p.EnableRaisingEvents = true;
-            // ƒvƒƒZƒX‚ªI—¹‚µ‚½‚Æ‚«
+            // ãƒ—ãƒ­ã‚»ã‚¹ãŒçµ‚äº†ã—ãŸã¨ã
             p.Exited += (object _, System.EventArgs _) =>
             {
                 UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
                 UnityEngine.Debug.Log($"{nameof(ExecuteMasterMemoryCodeGenerator)} : end");
-                // ƒŠƒ\[ƒX‚ğ‰ğ•ú
+                // ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾
                 p.Dispose();
                 p = null;
             };
@@ -63,14 +63,14 @@ namespace Common.MasterData
 
             Process? p = Process.Start(psi);
 
-            // true ‚Å p.Exited‚ğg‚¤
+            // true ã§ p.Exitedã‚’ä½¿ã†
             p.EnableRaisingEvents = true;
-            // ƒvƒƒZƒX‚ªI—¹‚µ‚½‚Æ‚«
+            // ãƒ—ãƒ­ã‚»ã‚¹ãŒçµ‚äº†ã—ãŸã¨ã
             p.Exited += (object _, System.EventArgs _) =>
             {
                 UnityEngine.Debug.Log(p.StandardOutput.ReadToEnd());
                 UnityEngine.Debug.Log($"{nameof(ExecuteMessagePackCodeGenerator)} : end");
-                // ƒŠƒ\[ƒX‚ğ‰ğ•ú
+                // ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾
                 p.Dispose();
                 p = null;
             };

@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using Generated.MasterData;
 using UnityEngine;
-using Generated.MasterData;
 
 namespace Common.MasterData
 {
