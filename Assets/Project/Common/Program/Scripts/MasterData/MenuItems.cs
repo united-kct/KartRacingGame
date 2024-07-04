@@ -11,10 +11,12 @@ namespace Common.MasterMemory
     public static class MenuItems
     {
         private static readonly string BasePath = $"{Application.dataPath}/Project/Common/Program/Scripts";
-        private static readonly string InputPath = $"{BasePath}/Schema";
-        private static readonly string OutputPath = $"{BasePath}/Generated/MasterData";
+        private static readonly string InputDirectory = $"{BasePath}/Schema";
+        private static readonly string OutputDirectory = $"{BasePath}/Generated/MasterData";
         private const string Namespace = "MasterData";
 
+        // dotnetにMasterMemory.GeneratorとMessagePack.Generatorをインストールして、
+        // inputとoutputのパスが正しいか確認する必要がある
         [MenuItem("Tools/MasterData/GenerateCode")]
         private static void GenerateCode()
         {
@@ -34,7 +36,7 @@ namespace Common.MasterMemory
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 FileName = "dotnet-mmgen",
-                Arguments = $@"-i ""{InputPath}"" -o ""{OutputPath}"" -c -n ""{Namespace}""",
+                Arguments = $@"-i ""{InputDirectory}"" -o ""{OutputDirectory}"" -c -n ""{Namespace}""",
             };
 
             //UnityEngine.Debug.Log($@"-i ""{InputPath}"" -o ""{OutputPath}"" -c -n ""{Namespace}""");
@@ -66,7 +68,7 @@ namespace Common.MasterMemory
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 FileName = "mpc",
-                Arguments = $@"-i ""{InputPath}"" -o ""{OutputPath}"" -n ""{Namespace}""",
+                Arguments = $@"-i ""{InputDirectory}"" -o ""{OutputDirectory}"" -n ""{Namespace}""",
             };
 
             //UnityEngine.Debug.Log($@"-i ""{InputPath}"" -o ""{OutputPath}"" -n ""{Namespace}""");
