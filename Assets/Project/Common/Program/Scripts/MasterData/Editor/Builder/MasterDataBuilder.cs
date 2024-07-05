@@ -25,10 +25,12 @@ namespace Common.MasterData
 
             DatabaseBuilder builder = new();
             MetaDatabase metaDataBase = MemoryDatabase.GetMetaDatabase();
-            MetaTable table = metaDataBase.GetTableInfo("friction");
-            string csvPath = "Assets/Project/Common/Program/MasterData/Csv/friction.csv";
-            List<object> data = CsvSerializer.Deserialize(csvPath, table);
-            builder.AppendDynamic(table.DataType, data);
+
+            foreach (MetaTable table in metaDataBase.GetTableInfos())
+            {
+                List<object> data = CsvSerializer.Deserialize(table);
+                builder.AppendDynamic(table.DataType, data);
+            }
 
             byte[] binary = builder.Build();
 

@@ -14,10 +14,12 @@ namespace Common.MasterData
 {
     public static class CsvSerializer
     {
-        public static List<object> Deserialize(string path, MetaTable table)
+        public static List<object> Deserialize(MetaTable table)
         {
             List<object> records = new();
-            string csv = AssetDatabase.LoadAssetAtPath<TextAsset>(path).text;
+            string path = $"Assets/Project/Common/Program/MasterData/Csv/{table.TableName}.csv";
+            TextAsset? textAsset = AssetDatabase.LoadAssetAtPath<TextAsset?>(path);
+            string csv = textAsset != null ? textAsset.text : throw new FileNotFoundException($"テーブル:{table.TableName}の csvファイルが見つかりません");
 
             using (MemoryStream stream = new(Encoding.UTF8.GetBytes(csv)))
             using (StreamReader reader = new(stream))
