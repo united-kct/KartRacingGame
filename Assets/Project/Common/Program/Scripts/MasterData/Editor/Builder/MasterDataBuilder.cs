@@ -2,6 +2,7 @@
 using Generated.MasterData.Resolvers;
 using MasterMemory;
 using MasterMemory.Meta;
+using MasterMemory.Validation;
 using MessagePack;
 using MessagePack.Resolvers;
 using System.Collections.Generic;
@@ -33,6 +34,12 @@ namespace Common.MasterData
             }
 
             byte[] binary = builder.Build();
+
+            ValidateResult validateResult = new MemoryDatabase(binary).Validate();
+            if (validateResult.IsValidationFailed)
+            {
+                throw new System.Exception(validateResult.FormatFailedResults());
+            }
 
             string path = $"{Application.dataPath}/Project/Common/Program/MasterData/master_data.bytes";
             string dir = Path.GetDirectoryName(path);
