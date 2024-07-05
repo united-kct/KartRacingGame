@@ -1,22 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+﻿#nullable enable
+
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using System;
 using DG.Tweening;
+using System;
+using System.Threading;
+using UnityEngine;
 
 namespace Common.View
 {
     public class KartCollider_Shuto : MonoBehaviour
     {
-        [SerializeField] private Transform _kartModel;
+        [SerializeField] private Transform _kartModel = null!;
         [SerializeField] private float _moveAcceleration = 2.78f; // 10 * 1000 / 3600
         [SerializeField] private float _maxVelocity = 13.9f; // 50 * 1000 / 3600
         [SerializeField] private float _maxRotateVelocity = 60;
         [SerializeField] private float _abradeAcceleration = .556f; // 2 * 1000 / 3600
 
-        private Rigidbody _rb;
+        private Rigidbody _rb = null!;
         private int _driftDirection;
         private float _driftPower;
         private int _driftMode = 0;
@@ -47,7 +47,7 @@ namespace Common.View
 
                 _kartModel.DOComplete();
                 _kartModel.DOPunchPosition(_kartModel.transform.up * .2f, .3f, 5, 1f)
-                    .OnUpdate(()=>_kartModel.transform.position = new Vector3(transform.position.x, _kartModel.transform.position.y, transform.position.z));
+                    .OnUpdate(() => _kartModel.transform.position = new Vector3(transform.position.x, _kartModel.transform.position.y, transform.position.z));
                 //_kartModel.DOJump(_kartModel.transform.position, .2f, 1, .3f);
                 Debug.Log(1);
             }
@@ -57,7 +57,6 @@ namespace Common.View
             {
                 Boost();
                 Debug.Log(2);
-
             }
         }
 

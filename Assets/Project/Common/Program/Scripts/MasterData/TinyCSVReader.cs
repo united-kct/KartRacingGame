@@ -80,7 +80,7 @@ namespace Common.MasterData
             for (int i = 0; i < values.Length; i++)
             {
                 string s = GetValue(line, ref lineIndex);
-                values[i++] = s;
+                values[i] = s;
             }
 
             return values;
