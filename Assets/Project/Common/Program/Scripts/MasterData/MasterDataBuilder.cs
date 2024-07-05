@@ -1,4 +1,6 @@
-using Generated.MasterData;
+﻿using Generated.MasterData;
+using MasterMemory;
+using MasterMemory.Meta;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -12,11 +14,10 @@ namespace Common.MasterData
             MasterDataUtils.InitializeMasterMemory();
 
             DatabaseBuilder builder = new();
-            builder.Append(new Friction[]
-            {
-                new(id: "1", tagName: "GroundRoad", frictionalAcceleration: 2.78f),
-                new(id: "2", tagName: "GroundOffroad", frictionalAcceleration: 4.17f)
-            });
+            MetaDatabase metaDataBase = MemoryDatabase.GetMetaDatabase();
+            MetaTable table = metaDataBase.GetTableInfo("friction");
+            string csvPath = $"{Application.dataPath}/Project/Common/Program/MasterData/friction.csv";
+            builder.AppendDynamic(table.DataType, CsvSerializer.Deserialize(csvPath, table));
 
             byte[] binary = builder.Build();
 
