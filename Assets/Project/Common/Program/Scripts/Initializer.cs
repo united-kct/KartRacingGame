@@ -1,4 +1,7 @@
-using Common.MasterData;
+﻿using Generated.MasterData;
+using Generated.MasterData.Resolvers;
+using MessagePack;
+using MessagePack.Resolvers;
 using UnityEngine;
 
 namespace Common
@@ -8,7 +11,13 @@ namespace Common
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void SetupMessagePackResolver()
         {
-            MasterDataUtils.InitializeMasterMemory();
+            StaticCompositeResolver.Instance.Register(new[]{
+                MasterMemoryResolver.Instance,
+                GeneratedResolver.Instance,
+                StandardResolver.Instance
+            });
+            MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard.WithResolver(StaticCompositeResolver.Instance);
+            MessagePackSerializer.DefaultOptions = options;
         }
     }
 }

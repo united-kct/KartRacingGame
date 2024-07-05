@@ -1,6 +1,9 @@
 ﻿using Generated.MasterData;
+using Generated.MasterData.Resolvers;
 using MasterMemory;
 using MasterMemory.Meta;
+using MessagePack;
+using MessagePack.Resolvers;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -12,7 +15,13 @@ namespace Common.MasterData
     {
         public static void Build()
         {
-            MasterDataUtils.InitializeMasterMemory();
+            IFormatterResolver messagePackResolvers = CompositeResolver.Create(
+                MasterMemoryResolver.Instance,
+                GeneratedResolver.Instance,
+                StandardResolver.Instance
+            );
+            MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard.WithResolver(messagePackResolvers);
+            MessagePackSerializer.DefaultOptions = options;
 
             DatabaseBuilder builder = new();
             MetaDatabase metaDataBase = MemoryDatabase.GetMetaDatabase();
