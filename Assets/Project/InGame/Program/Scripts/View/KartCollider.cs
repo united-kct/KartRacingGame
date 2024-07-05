@@ -1,3 +1,5 @@
+#nullable disable
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -17,13 +19,14 @@ namespace Common.View
         [SerializeField] private float _abradeAcceleration = .556f; // 2 * 1000 / 3600
 
         private Rigidbody _rb;
-        private bool _isAboveGround;
-        private bool _isDrifting;
         private int _driftDirection;
         private float _driftPower;
         private int _driftMode = 0;
-        private bool _isBoosting;
         private RaycastHit _hit;
+
+        private bool _isAboveGround;
+        private bool _isBoosting;
+        private bool _isDrifting;
 
         private void Start()
         {
