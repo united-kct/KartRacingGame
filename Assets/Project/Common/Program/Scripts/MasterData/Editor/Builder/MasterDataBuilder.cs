@@ -26,13 +26,13 @@ namespace Common.MasterData
             DatabaseBuilder builder = new();
             MetaDatabase metaDataBase = MemoryDatabase.GetMetaDatabase();
             MetaTable table = metaDataBase.GetTableInfo("friction");
-            string csvPath = "Assets/Project/Common/Program/MasterData/friction.csv";
+            string csvPath = "Assets/Project/Common/Program/MasterData/Csv/friction.csv";
             List<object> data = CsvSerializer.Deserialize(csvPath, table);
             builder.AppendDynamic(table.DataType, data);
 
             byte[] binary = builder.Build();
 
-            string path = $"{Application.dataPath}/Resources/master-data.bytes";
+            string path = $"{Application.dataPath}/Project/Common/Program/MasterData/master_data.bytes";
             string dir = Path.GetDirectoryName(path);
             if (!Directory.Exists(dir))
             {
