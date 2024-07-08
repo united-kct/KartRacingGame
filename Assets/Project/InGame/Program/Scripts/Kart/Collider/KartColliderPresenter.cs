@@ -2,7 +2,6 @@
 
 using Common.MasterData;
 using Cysharp.Threading.Tasks;
-using Generated.MasterData;
 using R3;
 using R3.Triggers;
 using System;
@@ -26,11 +25,6 @@ namespace InGame.Kart
 
             _colliderModel.Velocity.Subscribe(_colliderView.OnVelocityChanged).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Move()).AddTo(this);
-
-            // TODO: 後で削除
-            MemoryDatabase db = MasterDataDB.DB;
-            Friction friction = db.FrictionTable.FindById("1");
-            Debug.Log(friction.TagName);
         }
 
         private void Move()
@@ -61,19 +55,18 @@ namespace InGame.Kart
         private void Abrade()
         {
             _colliderView.UpdateGroundRay(_colliderModel.GroundDistance);
-            if (_colliderView.GroundObject && Frictions.FrictionalAccelerationList.ContainsKey(_colliderView.GroundObject!.tag))
+            if (_colliderView.GroundObject && MasterDataDB.DB.FrictionTable.TryFindByTagName(_colliderView.GroundObject!.tag, out Friction? friction))
             {
                 _colliderModel.IsAboveGround = true;
 
-                float abradeAcceleration = Frictions.FrictionalAccelerationList[_colliderView.GroundObject.tag];
                 Vector3 velocity = _colliderModel.Velocity.CurrentValue;
-                if (velocity.sqrMagnitude < Math.Pow(abradeAcceleration / 50, 2))
+                if (velocity.sqrMagnitude < Math.Pow(friction.FrictionalAcceleration / 50, 2))
                 {
                     _colliderModel.SetVelocity(new Vector3(0, 0, 0));
                 }
                 else
                 {
-                    _colliderModel.SetVelocity(velocity - velocity.normalized * abradeAcceleration / 50);
+                    _colliderModel.SetVelocity(velocity - velocity.normalized * friction.FrictionalAcceleration / 50);
                 }
             }
             else
