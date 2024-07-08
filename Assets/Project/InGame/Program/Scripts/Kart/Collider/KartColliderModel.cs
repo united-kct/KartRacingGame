@@ -28,5 +28,10 @@ namespace InGame.Kart
         {
             _velocity.Value = velocity;
         }
+
+        public void Accelerate(Vector3 direction, float acceleration)
+        {
+            _velocity.Value += direction * acceleration / 50;
+        }
     }
 }

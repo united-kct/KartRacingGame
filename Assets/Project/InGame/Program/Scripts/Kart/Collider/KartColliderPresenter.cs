@@ -36,19 +36,17 @@ namespace InGame.Kart
 
         private void MoveForward()
         {
-            Vector3 velocity = _colliderModel.Velocity.CurrentValue;
-            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && velocity.sqrMagnitude < _maxSqrVelocity)
+            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _maxSqrVelocity)
             {
-                _colliderModel.SetVelocity(velocity + _appearanceView.transform.forward * _colliderModel.MoveAcceleration / 50);
+                _colliderModel.Accelerate(_appearanceView.transform.forward, _colliderModel.MoveAcceleration);
             }
         }
 
         private void MoveBackward()
         {
-            Vector3 velocity = _colliderModel.Velocity.CurrentValue;
-            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && velocity.sqrMagnitude < _maxSqrVelocity)
+            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _maxSqrVelocity)
             {
-                _colliderModel.SetVelocity(velocity - _appearanceView.transform.forward * _colliderModel.MoveAcceleration / 50);
+                _colliderModel.Accelerate(-_appearanceView.transform.forward, _colliderModel.MoveAcceleration);
             }
         }
 
@@ -66,7 +64,7 @@ namespace InGame.Kart
                 }
                 else
                 {
-                    _colliderModel.SetVelocity(velocity - velocity.normalized * friction.FrictionalAcceleration / 50);
+                    _colliderModel.Accelerate(-velocity.normalized, friction.FrictionalAcceleration);
                 }
             }
             else
