@@ -35,7 +35,7 @@ namespace Common.MasterData
                             break;
                         }
 
-                        // 各プロパティの名前に一致するカラムを探して値を設定する（一致するカラムがないものはスキップ
+                        // 各プロパティの名前に一致するカラムを探して値を設定する（一致するカラムがないものはスキップ）
                         object record = FormatterServices.GetUninitializedObject(table.DataType);
                         foreach (MetaProperty property in table.Properties)
                         {
