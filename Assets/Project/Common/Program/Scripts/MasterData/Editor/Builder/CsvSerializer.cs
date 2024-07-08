@@ -25,36 +25,46 @@ namespace Common.MasterData
             using (StreamReader reader = new(stream))
             using (TinyCSVReader csvReader = new(reader))
             {
-                while (true)
+                try
                 {
-                    Dictionary<string, string>? columnNameToValueMap = csvReader.ReadValuesWithHeader();
-                    if (columnNameToValueMap == null)
+                    while (true)
                     {
-                        break;
-                    }
-
-                    // 各プロパティの名前に一致するカラムを探して値を設定する（一致するカラムがないものはスキップ
-                    object record = FormatterServices.GetUninitializedObject(table.DataType);
-                    foreach (MetaProperty property in table.Properties)
-                    {
-                        string columnName = property.Name;
-                        if (!columnNameToValueMap.TryGetValue(columnName, out string rawValue))
-                            continue;
-
-                        object? value = ParseValue(property.PropertyInfo.PropertyType, rawValue);
-                        if (property.PropertyInfo.SetMethod == null)
+                        Dictionary<string, string>? columnNameToValueMap = csvReader.ReadValuesWithHeader();
+                        if (columnNameToValueMap == null)
                         {
-                            throw new Exception(
-                                $"Target property does not exists set method. If you use {{get;}}, please change to {{ get; private set; }}, Type: {property.PropertyInfo.DeclaringType} Prop: {property.PropertyInfo.Name}"
-                                );
+                            break;
                         }
 
-                        property.PropertyInfo.SetValue(record, value);
-                    }
+                        // 各プロパティの名前に一致するカラムを探して値を設定する（一致するカラムがないものはスキップ
+                        object record = FormatterServices.GetUninitializedObject(table.DataType);
+                        foreach (MetaProperty property in table.Properties)
+                        {
+                            string columnName = property.Name;
+                            if (!columnNameToValueMap.TryGetValue(columnName, out string rawValue))
+                                continue;
 
-                    records.Add(record);
+                            object? value = ParseValue(property.PropertyInfo.PropertyType, rawValue);
+                            if (property.PropertyInfo.SetMethod == null)
+                            {
+                                throw new Exception(
+                                    $"Target property does not exists set method. If you use {{get;}}, please change to {{ get; private set; }}, Type: {property.PropertyInfo.DeclaringType} Prop: {property.PropertyInfo.Name}"
+                                    );
+                            }
+
+                            property.PropertyInfo.SetValue(record, value);
+                        }
+
+                        records.Add(record);
+                    }
                 }
-                csvReader.Dispose();
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    csvReader.Dispose();
+                }
             }
 
             return records;
