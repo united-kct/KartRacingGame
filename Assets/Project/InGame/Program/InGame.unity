@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 357420118}
   m_Layer: 0
   m_Name: Grass
-  m_TagString: GroundOffroad
+  m_TagString: Offroad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 1057210042}
   m_Layer: 0
   m_Name: Ramp
-  m_TagString: GroundRoad
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -555,7 +555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5911347888ccb444e90cbea5c5d5f0fd, type: 3}
       propertyPath: m_TagString
-      value: GroundRoad
+      value: Road
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5911347888ccb444e90cbea5c5d5f0fd, type: 3}
       propertyPath: m_StaticEditorFlags
