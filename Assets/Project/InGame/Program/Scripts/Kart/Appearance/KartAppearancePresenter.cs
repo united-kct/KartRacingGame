@@ -18,7 +18,7 @@ namespace InGame.Kart
             _appearanceModel = new();
 
             this.FixedUpdateAsObservable().Subscribe(_ => _appearanceView.UpdateDirection(_appearanceModel.RotateVelocity)).AddTo(this);
-            this.FixedUpdateAsObservable().Subscribe(_ => _appearanceView.transform.position = _colliderView.transform.position).AddTo(this);
+            this.FixedUpdateAsObservable().Subscribe(_ => _appearanceView.UpdatePosition(_colliderView.transform.position)).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Rotate()).AddTo(this);
         }
 

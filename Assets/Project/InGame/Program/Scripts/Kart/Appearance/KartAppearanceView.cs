@@ -11,5 +11,10 @@ namespace InGame.Kart
             Debug.Log(velocity);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + velocity / 50, 0);
         }
+
+        public void UpdatePosition(Vector3 position)
+        {
+            transform.position = position;
+        }
     }
 }
