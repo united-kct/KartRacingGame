@@ -24,6 +24,10 @@ namespace Common.MasterData
             {
                 validator.Fail("TagNameは入力必須です");
             }
+            if (FrictionalAcceleration <= 0)
+            {
+                validator.Fail("FrictionalAccelerationは0より大きい必要があります");
+            }
 
             if (validator.CallOnce())
             {
