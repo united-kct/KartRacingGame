@@ -15,13 +15,9 @@ namespace InGame.Kart
         [SerializeField] private KartColliderView _colliderView = null!;
         [SerializeField] private KartAppearanceView _appearanceView = null!;
 
-        private double _maxSqrVelocity;
-
         private void Start()
         {
             _colliderModel = new();
-
-            _maxSqrVelocity = Math.Pow(_colliderModel.MaxVelocity, 2);
 
             _colliderModel.Velocity.Subscribe(_colliderView.OnVelocityChanged).AddTo(this);
             this.FixedUpdateAsObservable().Subscribe(_ => Move()).AddTo(this);
@@ -36,7 +32,7 @@ namespace InGame.Kart
 
         private void MoveForward()
         {
-            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _maxSqrVelocity)
+            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _colliderModel.MaxSqrVelocity)
             {
                 _colliderModel.Accelerate(_appearanceView.transform.forward, _colliderModel.MoveAcceleration);
             }
@@ -44,7 +40,7 @@ namespace InGame.Kart
 
         private void MoveBackward()
         {
-            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _maxSqrVelocity)
+            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _colliderModel.MaxSqrVelocity)
             {
                 _colliderModel.Accelerate(-_appearanceView.transform.forward, _colliderModel.MoveAcceleration);
             }

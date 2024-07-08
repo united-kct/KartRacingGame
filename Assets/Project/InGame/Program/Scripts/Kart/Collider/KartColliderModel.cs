@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using R3;
+using System;
 using UnityEngine;
 
 namespace InGame.Kart
@@ -14,6 +15,7 @@ namespace InGame.Kart
         public float GroundDistance { get; private set; }
         public bool IsAboveGround { get; set; }
         public ReadOnlyReactiveProperty<Vector3> Velocity => _velocity;
+        public double MaxSqrVelocity { get; private set; }
 
         public KartColliderModel()
         {
@@ -22,6 +24,8 @@ namespace InGame.Kart
             MoveAcceleration = 5.56f; // 20 * 1000 / 3600
             MaxVelocity = 13.9f; // 50 * 1000 / 3600
             GroundDistance = 0.6f;
+
+            MaxSqrVelocity = Math.Pow(MaxVelocity, 2);
         }
 
         public void SetVelocity(Vector3 velocity)

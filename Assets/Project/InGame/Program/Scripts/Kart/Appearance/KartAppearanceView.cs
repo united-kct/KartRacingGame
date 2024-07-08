@@ -8,7 +8,6 @@ namespace InGame.Kart
     {
         public void UpdateDirection(float velocity)
         {
-            Debug.Log(velocity);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + velocity / 50, 0);
         }
 
