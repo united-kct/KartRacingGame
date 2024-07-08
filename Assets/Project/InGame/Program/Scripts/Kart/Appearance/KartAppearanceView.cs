@@ -6,9 +6,10 @@ namespace InGame.Kart
 {
     public class KartAppearanceView : MonoBehaviour
     {
-        public void OnDirectionChanged(Vector3 direction)
+        public void UpdateDirection(float velocity)
         {
-            transform.eulerAngles = direction;
+            Debug.Log(velocity);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + velocity / 50, 0);
         }
     }
 }

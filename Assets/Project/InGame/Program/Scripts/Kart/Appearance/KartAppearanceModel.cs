@@ -1,27 +1,24 @@
 ﻿#nullable enable
 
-using R3;
-using UnityEngine;
-
 namespace InGame.Kart
 {
     public class KartAppearanceModel
     {
-        private readonly ReactiveProperty<Vector3> _direction;
+        private float _rotateVelocity;
 
         public float MaxRotateVelocity { get; private set; }
-        public ReadOnlyReactiveProperty<Vector3> Direction => _direction;
+        public float RotateVelocity => _rotateVelocity;
 
-        public KartAppearanceModel(Vector3 direction)
+        public KartAppearanceModel()
         {
-            _direction = new(direction);
+            _rotateVelocity = 0;
 
             MaxRotateVelocity = 60;
         }
 
-        public void SetDirection(Vector3 direction)
+        public void SetRotateVelocity(float velocity)
         {
-            _direction.Value = direction;
+            _rotateVelocity = velocity;
         }
     }
 }
