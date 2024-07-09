@@ -37,5 +37,17 @@ namespace InGame.Kart
         {
             _velocity.Value += direction * acceleration / 50;
         }
+
+        // 速さが最大の速さより高いとき true
+        public bool IsMaxVelocity(double maxSqrVelocity)
+        {
+            return _velocity.CurrentValue.sqrMagnitude >= maxSqrVelocity;
+        }
+
+        // 速さが加速度より高いとき true
+        public bool IsVelocityGreater(float acceleration)
+        {
+            return _velocity.CurrentValue.sqrMagnitude > Math.Pow(acceleration / 50, 2);
+        }
     }
 }

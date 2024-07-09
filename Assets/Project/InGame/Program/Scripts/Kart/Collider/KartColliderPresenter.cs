@@ -4,7 +4,6 @@ using Common.MasterData;
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
-using System;
 using UnityEngine;
 
 namespace InGame.Kart
@@ -32,8 +31,7 @@ namespace InGame.Kart
 
         private void MoveForward()
         {
-            // 速さが最大の速さより低いとき
-            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _colliderModel.MaxSqrVelocity)
+            if (Input.GetKey(KeyCode.W) && _colliderModel.IsAboveGround && !_colliderModel.IsMaxVelocity(_colliderModel.MaxSqrVelocity))
             {
                 _colliderModel.Accelerate(_appearanceView.transform.forward, _colliderModel.MoveAcceleration);
             }
@@ -41,7 +39,7 @@ namespace InGame.Kart
 
         private void MoveBackward()
         {
-            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && _colliderModel.Velocity.CurrentValue.sqrMagnitude < _colliderModel.MaxSqrVelocity)
+            if (Input.GetKey(KeyCode.S) && _colliderModel.IsAboveGround && !_colliderModel.IsMaxVelocity(_colliderModel.MaxSqrVelocity))
             {
                 _colliderModel.Accelerate(-_appearanceView.transform.forward, _colliderModel.MoveAcceleration);
             }
@@ -54,15 +52,13 @@ namespace InGame.Kart
             {
                 _colliderModel.IsAboveGround = true;
 
-                Vector3 velocity = _colliderModel.Velocity.CurrentValue;
-                // 速さが摩擦による加速度より小さいとき
-                if (velocity.sqrMagnitude < Math.Pow(friction.FrictionalAcceleration / 50, 2))
+                if (!_colliderModel.IsVelocityGreater(friction.FrictionalAcceleration))
                 {
                     _colliderModel.SetVelocity(new Vector3(0, 0, 0));
                 }
                 else
                 {
-                    _colliderModel.Accelerate(-velocity.normalized, friction.FrictionalAcceleration);
+                    _colliderModel.Accelerate(-_colliderModel.Velocity.CurrentValue.normalized, friction.FrictionalAcceleration);
                 }
             }
             else
